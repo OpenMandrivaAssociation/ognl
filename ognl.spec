@@ -43,6 +43,7 @@ Source1:        http://www.ognl.org/%{version}/%{name}-%{version}-doc.zip
 Source2:        ognl-osbuild.xml
 Source3:        ognl-copyright.html
 BuildRequires:  jpackage-utils >= 0:1.6
+BuildRequires:  java-rpmbuild
 BuildRequires:  ant >= 0:1.6
 BuildRequires:  ant-junit >= 0:1.6
 BuildRequires:  ant-nodeps >= 0:1.6
