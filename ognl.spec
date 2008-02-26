@@ -115,7 +115,7 @@ javacc \
 junit \
 javassist \
 
-export OPT_JAR_LIST="ant-contrib ant/ant-nodeps ant/ant-junit ant/ant-trax junit javacc"
+export OPT_JAR_LIST="ant-contrib ant-launcher ant/ant-nodeps ant/ant-junit ant/ant-trax junit javacc"
 %ant jar javadocs junit.report
 
 %install
