@@ -1,4 +1,4 @@
-# Copyright (c) 2000-2007, JPackage Project
+# Copyright (c) 2000-2008, JPackage Project
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -33,7 +33,7 @@
 Summary:        Object-Graph Navigation Language
 Name:           ognl
 Version:        2.6.9
-Release:        %mkrel 2.0.1
+Release:        %mkrel 3.0.1
 Epoch:          0
 License:        BSD -style
 URL:            http://www.ognl.org/
@@ -42,12 +42,13 @@ Source0:        http://www.ognl.org/%{version}/%{name}-%{version}-dist.zip
 Source1:        http://www.ognl.org/%{version}/%{name}-%{version}-doc.zip
 Source2:        ognl-osbuild.xml
 Source3:        ognl-copyright.html
+Source4:        http://repo1.maven.org/maven2/ognl/ognl/2.6.9/ognl-2.6.9.pom
 BuildRequires:  jpackage-utils >= 0:1.6
 BuildRequires:  java-rpmbuild
 BuildRequires:  ant >= 0:1.6
+BuildRequires:  ant-trax
 BuildRequires:  ant-junit >= 0:1.6
 BuildRequires:  ant-nodeps >= 0:1.6
-BuildRequires:  ant-trax
 BuildRequires:  ant-contrib
 BuildRequires:  junit
 BuildRequires:  javacc
@@ -129,6 +130,11 @@ install -m 0644 build/%{name}-%{version}.jar \
   $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
 (cd $RPM_BUILD_ROOT%{_javadir} && for jar in *-%{version}.jar; do ln -sf ${jar} `echo $jar| sed "s|-%{version}||g"`; done)
 
+# pom
+install -d -m 0755 $RPM_BUILD_ROOT%{_datadir}/maven2/poms
+install -m 644 %{SOURCE4} $RPM_BUILD_ROOT%{_datadir}/maven2/poms/JPP-%{name}.pom
+%add_to_maven_depmap %{name} %{name} %{version} JPP %{name}
+
 # javadoc
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
 cp -pr dist/docs/api/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
@@ -147,10 +153,18 @@ cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/copyright.html
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%update_maven_depmap
+
+%postun
+%update_maven_depmap
+
 %files
 %defattr(0644,root,root,0755)
 %doc %{_docdir}/%{name}-%{version}/copyright.html
 %{_javadir}/*.jar
+%{_datadir}/maven2
+%{_mavendepmapfragdir}
 %{gcj_files}
 
 %files javadoc
