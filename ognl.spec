@@ -33,7 +33,7 @@
 Summary:        Object-Graph Navigation Language
 Name:           ognl
 Version:        2.6.9
-Release:        %mkrel 2.0.1
+Release:        %mkrel 2.0.2
 Epoch:          0
 License:        BSD -style
 URL:            http://www.ognl.org/
