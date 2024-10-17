@@ -36,7 +36,7 @@ Version:        2.6.9
 Release:        %mkrel 2.0.2
 Epoch:          0
 License:        BSD -style
-URL:            http://www.ognl.org/
+URL:            https://www.ognl.org/
 Group:          Development/Java
 Source0:        http://www.ognl.org/%{version}/%{name}-%{version}-dist.zip
 Source1:        http://www.ognl.org/%{version}/%{name}-%{version}-doc.zip
